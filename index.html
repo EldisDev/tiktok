@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="EloStore - L'innovation à portée de clic au Bénin. Smartphones, ordinateurs et accessoires certifiés avec paiement sécurisé MTN, Moov et Celtiis.">
+<meta name="keywords" content="Boutique en ligne Bénin, iPhone, MacBook, Natitingou, Kkiapay, EloStore">
+<meta property="og:title" content="EloStore | L'innovation à portée de clic 🇧🇯">
+  <meta property="og:description" content="Découvrez le meilleur de la technologie. Livraison rapide au Nord Bénin et paiement mobile money sécurisé.">
+  <meta property="og:image" content="https://elostore.infinityfree.me/vignette.jpg">
+  <meta property="og:url" content="https://elostore.infinityfree.me/">
+  <meta property="og:type" content="website">
+
+    
+    <title>EloStore - L'innovation à portée de clic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.kkiapay.me/k.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .product-card.visible {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        .cart-sidebar {
+            transition: transform 0.4s ease-in-out;
+            z-index: 100;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Style pour l'ouverture de la recherche */
+        #search-bar-container {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        #search-bar-container.active {
+            max-height: 80px;
+            opacity: 1;
+            padding-bottom: 1rem;
+        }
+        
+                @keyframes bounce-custom {
+            0%, 100% { transform: translateY(0) rotate(6deg) scale(1); }
+            50% { transform: translateY(-30px) rotate(10deg) scale(1.1); }
+        }
+
+        @keyframes fade-in-late {
+            0%, 70% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .animate-bounce-custom {
+            animation: bounce-custom 2s ease-in-out infinite; /* L'animation infinie pour le logo */
+        }
+
+        .animate-fade-in-late {
+            animation: fade-in-late 1s ease-out forwards; /* L'animation du texte qui apparaît après */
+            animation-delay: 1.5s; /* Commence après 1.5 secondes */
+        }
+        
+        /* Animation du tracé du cercle */
+@keyframes draw {
+    from { stroke-dashoffset: 200; }
+    to { stroke-dashoffset: 0; }
+}
+
+/* Animation de l'apparition du E */
+@keyframes path-in {
+    0% { opacity: 0; transform: translateX(-10px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Animation globale du logo */
+@keyframes logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes text-up {
+    from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.animate-draw {
+    stroke-dasharray: 200;
+    animation: draw 2s ease-out forwards;
+}
+
+.animate-path {
+    animation: path-in 1s ease-out forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+
+.animate-logo-svg {
+    animation: logo-float 2s ease-in-out infinite;
+}
+
+.animate-text-appear {
+    animation: text-up 1s ease-out forwards;
+    animation-delay: 1.2s;
+}
+
+.animate-pulse-fast {
+    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    
+   <div id="splash-screen" class="fixed inset-0 bg-emerald-950 flex flex-col items-center justify-center z-[9999] transition-opacity duration-700">
+    <div class="relative">
+        <svg class="w-32 h-32 animate-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#34d399" />
+                    <stop offset="100%" stop-color="#059669" />
+                </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="48" stroke="url(#logo-grad)" stroke-width="2" stroke-dasharray="200" class="animate-draw" />
+            
+            <path d="M35 30H65M35 50H55M35 70H65M35 30V70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" class="animate-path" />
+            
+            <circle cx="65" cy="50" r="5" fill="#f97316" class="animate-pulse-fast" />
+        </svg>
+    </div>
+
+    <h1 class="text-white text-4xl font-black tracking-tighter mt-8 opacity-0 animate-text-appear">
+        ELO<span class="text-orange-500">STORE</span>
+    </h1>
+    
+    <div class="mt-4 flex space-x-2">
+        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-bounce"></div>
+        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-bounce [animation-delay:-0.5s]"></div>
+    </div>
+</div>
+
+  <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4">
+    <div class="container mx-auto">
+        <div class="flex justify-between items-center py-3">
+            
+            <div class="flex items-center space-x-3 group cursor-pointer">
+                <div class="relative w-9 h-9 transition-transform duration-300 group-hover:rotate-12">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <circle cx="50" cy="50" r="45" stroke="#065f46" stroke-width="10" />
+                        <path d="M35 35H65M35 50H55M35 65H65M35 35V65" stroke="#065f46" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="68" cy="50" r="8" fill="#f97316" class="animate-pulse" />
+                    </svg>
+                </div>
+                <span class="text-2xl font-black text-emerald-900 tracking-tighter uppercase">
+                    Elo<span class="text-orange-500">Store</span>
+                </span>
+            </div>                
+
+            <div class="hidden md:flex space-x-8 font-semibold text-gray-600">
+                <a href="#" class="hover:text-emerald-600 transition-colors">Accueil</a>
+                <a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-emerald-600 transition-colors">Boutique</a>
+                <a href="#" class="hover:text-emerald-600 transition-colors">Promotions</a>
+                <a href="javascript:void(0)" onclick="toggleStores()" class="hover:text-emerald-600 transition-colors">Nos Stores</a>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <button id="search-trigger" onclick="toggleSearchBar()" class="p-2 text-emerald-900 hover:bg-emerald-50 rounded-full transition-all">
+                    <i class="fas fa-search text-xl"></i>
+                </button>
+
+                <button onclick="toggleCart()" class="relative p-2 text-emerald-900 hover:bg-emerald-50 rounded-full transition-all">
+                    <i class="fas fa-shopping-bag text-2xl"></i>
+                    <span id="cart-count" class="absolute top-0 right-0 bg-orange-500 text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center font-bold border-2 border-white">0</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="search-bar-container">
+            <div class="flex items-center space-x-2 mb-2">
+                <div class="relative bg-gray-100 rounded-2xl flex-1 flex items-center shadow-inner">
+                    <i class="fas fa-search absolute left-4 text-emerald-600"></i>
+                    <input type="text" id="search-input" onkeyup="searchProducts()" placeholder="Que cherchez-vous ?" class="w-full bg-transparent border-none py-3 pl-12 pr-4 text-sm focus:ring-0 text-emerald-900 font-medium">
+                </div>
+                <button onclick="toggleSearchBar()" class="bg-emerald-50 text-emerald-600 border border-emerald-100 p-3 rounded-2xl hover:bg-emerald-100 transition-all active:scale-95">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+        </div>
+        
+    </div>
+</nav>
+
+    <section class="hero-gradient pt-32 pb-20 px-4 relative overflow-hidden">
+        <div class="container mx-auto flex flex-col md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 text-white space-y-6 animate-fade-in">
+                <span class="bg-orange-500/20 text-orange-200 px-4 py-1 rounded-full text-sm font-semibold">Offre Spéciale Nord Bénin 🇧🇯</span>
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight">L'innovation à portée de clic.</h1>
+                                <p class="text-emerald-50 opacity-90 text-lg max-w-md">
+                    Achetez certifié et payez en toute sécurité via MTN, Moov ou Celtiis.
+                </p>
+                <div class="flex space-x-4">
+                    <button onclick="scrollToProducts()" class="bg-emerald-400 hover:bg-emerald-300 text-emerald-950 px-8 py-4 rounded-2xl font-bold transition-all transform hover:scale-105 inline-block text-center">
+                        Découvrir
+                    </button>
+                    <button onclick="toggleStores()" class="bg-white/10 hover:bg-white/20 px-8 py-4 rounded-2xl font-bold transition-all">
+                        Nos Stores
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center animate-fade-in" style="animation-delay: 0.2s;">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-emerald-400/20 rounded-3xl blur-2xl"></div>
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80" alt="Laptop" class="rounded-3xl shadow-2xl relative border-4 border-emerald-800/50">
+                </div>
+            </div>
+        </div>
+    </section>
+
+       <main class="container mx-auto px-4 py-16 flex flex-col md:flex-row gap-8">
+        <aside class="w-full md:w-1/4 space-y-8">
+            <div class="sticky top-32">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Catégories</h2>
+                <div class="flex md:flex-col gap-3 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0" id="category-list">
+                    <button onclick="filterProducts('all')" class="cat-btn whitespace-nowrap flex items-center space-x-3 w-full p-4 bg-emerald-50 text-emerald-700 rounded-2xl font-semibold transition-all">
+                        <i class="fas fa-th-large"></i> <span>Tout voir</span>
+                    </button>
+                    <button onclick="filterProducts('electronique')" class="cat-btn whitespace-nowrap flex items-center space-x-3 w-full p-4 text-gray-500 hover:bg-gray-100 rounded-2xl transition-all">
+                        <i class="fas fa-microchip"></i> <span>Électronique</span>
+                    </button>
+                    <button onclick="filterProducts('audio')" class="cat-btn whitespace-nowrap flex items-center space-x-3 w-full p-4 text-gray-500 hover:bg-gray-100 rounded-2xl transition-all">
+                        <i class="fas fa-headphones"></i> <span>Audio</span>
+                    </button>
+                    <button onclick="filterProducts('maison')" class="cat-btn whitespace-nowrap flex items-center space-x-3 w-full p-4 text-gray-500 hover:bg-gray-100 rounded-2xl transition-all">
+                        <i class="fas fa-home"></i> <span>Maison</span>
+                    </button>
+                    <button onclick="filterProducts('accessoires')" class="cat-btn whitespace-nowrap flex items-center space-x-3 w-full p-4 text-gray-500 hover:bg-gray-100 rounded-2xl transition-all">
+                        <i class="fas fa-plug"></i> <span>Accessoires</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <section class="w-full md:w-3/4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid"></div>
+            
+            <div class="flex justify-center mt-12">
+                <button id="load-more-btn" onclick="loadMoreProducts()" class="group flex items-center space-x-3 bg-white border-2 border-emerald-600 text-emerald-700 px-10 py-4 rounded-2xl font-bold transition-all hover:bg-emerald-600 hover:text-white active:scale-95 shadow-lg shadow-emerald-100">
+                    <span>Voir plus de produits</span>
+                    <i class="fas fa-chevron-down animate-bounce group-hover:animate-none"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+    
+
+    <div id="stores-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-emerald-950/80 backdrop-blur-sm">
+        <div class="bg-white rounded-[2.5rem] max-w-2xl w-full p-8 relative shadow-2xl">
+            <button onclick="toggleStores()" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <h2 class="text-3xl font-bold text-emerald-900 mb-6 text-center">Nos points de vente au Bénin</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-6 border border-emerald-100 rounded-3xl bg-emerald-50">
+                    <h3 class="font-bold text-xl text-emerald-800 mb-2"><i class="fas fa-map-marker-alt mr-2 text-orange-500"></i>Natitingou 1</h3>
+                    <p class="text-gray-600">Quartier Ourbouga, vons Hôtel Linge blanc</p>
+                    <p class="text-sm font-bold mt-4 text-emerald-700">Lun - Sam: 09h - 19h</p>
+                </div>
+                <div class="p-6 border border-emerald-100 rounded-3xl bg-emerald-50">
+                    <h3 class="font-bold text-xl text-emerald-800 mb-2"><i class="fas fa-map-marker-alt mr-2 text-orange-500"></i>Natitingou 2</h3>
+                    <p class="text-gray-600">Face à l'agence Ecobank, non loin du petit marché</p>
+                    <p class="text-sm font-bold mt-4 text-emerald-700">Lun - Sam: 08h - 20h</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <div id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl translate-x-full overflow-y-auto">
+    <div class="p-6">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">Mon Panier</h2>
+            <button onclick="toggleCart()" class="text-gray-500 text-2xl hover:text-red-500"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div id="cart-items" class="space-y-6"></div>
+        
+        <div class="mt-10 border-t pt-6">
+            <div class="flex justify-between text-xl font-bold mb-6">
+                <span>Total:</span>
+                <span id="cart-total" class="text-emerald-700">0 F</span>
+            </div>
+            
+            <button onclick="processPayment()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-bold hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100 flex items-center justify-center space-x-2">
+             
+                <span>Payer maintenant</span>
+            </button>
+            
+            <p class="text-center text-xs text-gray-400 mt-4">
+                Paiement sécurisé via Kkiapay (MTN, Moov, Celtiis)
+            </p>
+        </div>
+    </div>
+</div>
+
+    
+     <script>
+        const products = [
+            // ELECTRONIQUE
+            { id: 1, name: "iPhone 15 Pro", price: 850000, category: "electronique", img: "iphone-15-pro.jpg", tag: "Nouveauté" },
+            { id: 2, name: "MacBook Air M2", price: 745000, category: "electronique", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400", tag: "Apple" },
+            { id: 3, name: "Galaxy S23 Ultra", price: 625000, category: "electronique", img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400", tag: "Premium" },
+            { id: 4, name: "Dell XPS 13", price: 920000, category: "electronique", img: "dell-xps-13.webp", tag: "Pro" },
+            { id: 5, name: "iPad Pro M2", price: 650000, category: "electronique", img: "ipad-pro-m2.webp", tag: "Tablette" },
+            { id: 6, name: "Xiaomi 13 Ultra", price: 580000, category: "electronique", img: "xiaomi-13-ultra.webp", tag: "Photo" },
+            { id: 7, name: "HP Victus 16", price: 595000, category: "electronique", img: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400", tag: "Gaming" },
+            // AUDIO
+            { id: 8, name: "Sony WH-1000XM5", price: 210000, category: "audio", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400", tag: "ANC" },
+            { id: 9, name: "AirPods Pro 2", price: 155000, category: "audio", img: "https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=400", tag: "Apple" },
+            { id: 10, name: "JBL Flip 6", price: 75000, category: "audio", img: "https://images.unsplash.com/photo-1589003077984-894e133dabab?w=400", tag: "Outdoor" },
+            { id: 11, name: "Bose SoundLink", price: 125000, category: "audio", img: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400", tag: "Luxe" },
+            { id: 12, name: "Beats Solo 3", price: 95000, category: "audio", img: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400", tag: "Style" },
+            { id: 13, name: "Marshall Emberton", price: 110000, category: "audio", img: "https://images.unsplash.com/photo-1589003077984-894e133dabab?w=400", tag: "Vintage" },
+            { id: 14, name: "Samsung Buds2 Pro", price: 130000, category: "audio", img: "samsung-buds.jpg", tag: "Hi-Fi" },
+            // MAISON
+            { id: 15, name: "Machine Philips", price: 285000, category: "maison", img: "https://images.unsplash.com/photo-1520970014086-2208d157c9e2?w=400", tag: "Cuisine" },
+            { id: 16, name: "Dyson V15 Detect", price: 450000, category: "maison", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=400", tag: "Nettoyage" },
+            { id: 17, name: "Lampe Philips Hue", price: 45000, category: "maison", img: "lamp.jpg", tag: "Smart" },
+            { id: 18, name: "Air Fryer Ninja", price: 85000, category: "maison", img: "ninja.webp", tag: "Top" },
+            { id: 19, name: "Ventilateur Rowenta", price: 55000, category: "maison", img: "rowenta.jpeg", tag: "Confort" },
+            { id: 20, name: "Mélangeur KitchenAid", price: 320000, category: "maison", img: "kitchen-aid.webp", tag: "Chef" },
+            { id: 21, name: "Robot Aspirateur", price: 240000, category: "maison", img: "robot-aspirateur.jpeg", tag: "Auto" },
+            // ACCESSOIRES
+            { id: 22, name: "Logitech MX Master 3", price: 65000, category: "accessoires", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400", tag: "Pro" },
+            { id: 23, name: "Keychron V1", price: 95000, category: "accessoires", img: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=400", tag: "Setup" },
+            { id: 24, name: "Batterie Solaire", price: 30000, category: "accessoires", img: "https://images.unsplash.com/photo-1615526675159-e248c3021d3f?w=400", tag: "Énergie" },
+            { id: 25, name: "Sac Laptop Pro", price: 45000, category: "accessoires", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400", tag: "Travel" },
+            { id: 26, name: "Apple Watch S9", price: 285000, category: "accessoires", img: "apple-watch-s9.jpg", tag: "Sport" },
+            { id: 27, name: "SSD Portable 1TB", price: 85000, category: "accessoires", img: "https://images.unsplash.com/photo-1597740985671-2a8a3b80502e?w=400", tag: "Data" },
+            { id: 28, name: "Support Ordinateur", price: 25000, category: "accessoires", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400", tag: "Ergo" },
+            { id: 29, name: "Hub USB-C 10-en-1", price: 35000, category: "accessoires", img: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400", tag: "Utile" },
+            { id: 30, name: "Trépied Smartphone", price: 15000, category: "accessoires", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400", tag: "Video" }
+        ];
+
+                let cart = [];
+        let visibleProducts = 9; // Nombre de produits affichés au début
+        let currentCategory = 'all';
+
+        function toggleSearchBar() {
+            const bar = document.getElementById('search-bar-container');
+            const input = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-trigger');
+            bar.classList.toggle('active');
+            if (bar.classList.contains('active')) {
+                searchBtn.style.opacity = "0";
+                searchBtn.style.pointerEvents = "none";
+                setTimeout(() => input.focus(), 300);
+            } else {
+                input.value = "";
+                renderProducts('all'); 
+                searchBtn.style.opacity = "1";
+                searchBtn.style.pointerEvents = "auto";
+            }
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const grid = document.getElementById('product-grid');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            
+            if (searchTerm === "") { renderProducts('all'); return; }
+            
+            const filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm) || p.category.toLowerCase().includes(searchTerm));
+            loadMoreBtn.style.display = 'none'; // On cache le bouton pendant la recherche
+            
+            grid.innerHTML = `<div class="col-span-1 sm:col-span-2 lg:col-span-3 mb-6"><h2 class="text-2xl font-bold text-emerald-900">Résultats pour : "${searchTerm}"</h2></div>`;
+            if (filtered.length > 0) {
+                grid.innerHTML += filtered.map(p => createProductCard(p)).join('');
+            } else {
+                grid.innerHTML += `<div class="col-span-1 sm:col-span-2 lg:col-span-3 py-20 text-center text-gray-400 font-medium">Aucun produit trouvé.</div>`;
+            }
+            triggerAnimations();
+        }
+
+        function renderProducts(filter = 'all') {
+            currentCategory = filter;
+            const grid = document.getElementById('product-grid');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            grid.innerHTML = '';
+            
+            let filteredList = filter === 'all' ? products : products.filter(p => p.category === filter);
+            let productsToShow = filteredList.slice(0, visibleProducts);
+
+            const categoriesInfo = {
+                'electronique': { label: 'Électronique & High-Tech', icon: '📱' },
+                'audio': { label: 'Audio & Musique', icon: '🎧' },
+                'maison': { label: 'Maison & Confort', icon: '🏠' },
+                'accessoires': { label: 'Accessoires & Utilitaires', icon: '⚡' }
+            };
+
+            if (filter === 'all') {
+                for (const [key, info] of Object.entries(categoriesInfo)) {
+                    const sectionProducts = productsToShow.filter(p => p.category === key);
+                    if (sectionProducts.length > 0) {
+                        grid.insertAdjacentHTML('beforeend', `
+                            <div class="col-span-1 sm:col-span-2 lg:col-span-3 mt-8 mb-4">
+                                <h2 class="text-3xl font-bold text-emerald-900 border-l-8 border-orange-500 pl-4">${info.icon} ${info.label}</h2>
+                            </div>
+                        `);
+                        grid.insertAdjacentHTML('beforeend', sectionProducts.map(p => createProductCard(p)).join(''));
+                    }
+                }
+            } else {
+                grid.innerHTML = `
+                    <div class="col-span-1 sm:col-span-2 lg:col-span-3 mb-6">
+                        <h2 class="text-4xl font-extrabold text-emerald-900 capitalize">${categoriesInfo[filter].label}</h2>
+                    </div>
+                    ${productsToShow.map(p => createProductCard(p)).join('')}
+                `;
+            }
+
+            // Gestion de l'affichage du bouton
+            if (visibleProducts >= filteredList.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'flex';
+            }
+            triggerAnimations();
+        }
+
+        function loadMoreProducts() {
+            visibleProducts += 6; // On affiche 6 produits de plus
+            renderProducts(currentCategory);
+        }
+
+        function filterProducts(category) {
+            visibleProducts = 9; // On réinitialise le compteur
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'font-semibold');
+                btn.classList.add('text-gray-500');
+            });
+            event.currentTarget.classList.add('bg-emerald-50', 'text-emerald-700', 'font-semibold');
+            event.currentTarget.classList.remove('text-gray-500');
+            renderProducts(category);
+            scrollToProducts();
+        }
+
+        function createProductCard(p) {
+            return `
+                <div class="product-card visible bg-white p-4 rounded-[2rem] border border-gray-100 relative group shadow-sm">
+                    <div class="absolute top-4 right-4 bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-1 rounded-md uppercase z-10">${p.tag}</div>
+                    <div class="bg-gray-50 rounded-[1.5rem] overflow-hidden mb-4 flex justify-center items-center h-48">
+                        <img src="${p.img}" class="object-cover h-full w-full group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                    <h3 class="font-bold text-gray-800 text-lg mb-1">${p.name}</h3>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-xl font-extrabold text-emerald-900">${p.price.toLocaleString()} F</span>
+                        <button onclick="addToCart(${p.id})" class="bg-emerald-600 text-white p-3 rounded-xl hover:bg-emerald-700 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function triggerAnimations() {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => { card.classList.add('visible'); }, index * 30);
+            });
+        }
+
+        function scrollToProducts() {
+            const grid = document.getElementById('product-grid');
+            window.scrollTo({ top: grid.getBoundingClientRect().top + window.scrollY - 150, behavior: 'smooth' });
+        }
+
+        function toggleStores() { document.getElementById('stores-modal').classList.toggle('hidden'); }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('translate-x-full'); }
+        
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            cartCount.innerText = cart.length;
+            if(cart.length === 0) {
+                cartList.innerHTML = '<p class="text-gray-400 text-center py-10">Vide</p>';
+                cartTotal.innerText = '0 F';
+                return;
+            }
+            cartList.innerHTML = cart.map((item, index) => `
+                <div class="flex items-center space-x-4">
+                    <img src="${item.img}" class="w-12 h-12 rounded-lg object-cover">
+                    <div class="flex-1 text-sm font-bold">${item.name}</div>
+                    <button onclick="removeFromCart(${index})" class="text-red-400"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            cartTotal.innerText = total.toLocaleString() + ' F';
+        }
+
+        function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
+        
+        // Initialisation au chargement
+        renderProducts();
+        
+        document.addEventListener("DOMContentLoaded", function() {
+    // On ajoute la classe 'loading' au body pour bloquer le scroll au début
+    document.body.classList.add('loading');
+
+    const splash = document.getElementById('splash-screen');
+
+    // On attend 3 secondes avant de lancer la disparition
+    setTimeout(() => {
+        // 1. On lance l'effet de fondu (opacity)
+        splash.style.opacity = '0';
+        
+        // 2. On retire le blocage du scroll
+        document.body.classList.remove('loading');
+
+        // 3. Après la fin de la transition (700ms), on retire l'élément du DOM
+        setTimeout(() => {
+            splash.style.display = 'none';
+        }, 700);
+    }, 3000); // Temps total d'affichage : 3 secondes
+});
+
+function processPayment() {
+    if (cart.length === 0) {
+        alert("Votre panier est vide !");
+        return;
+    }
+
+    const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+
+    // Initialisation de Kkiapay
+    openKkiapayWidget({
+        amount: totalAmount,
+        position: "center",
+        callback: "paymentFinished", // Fonction appelée après le succès
+        data: "Paiement de commande EloStore",
+        key: "0b90d1b0002b11f19a3ab7760e4de4ee", // <--- Mets ta clé ici
+        sandbox: true // Garder à true pour les tests
+    });
+}
+
+// Cette fonction est appelée automatiquement par Kkiapay après le succès
+function paymentFinished(response) {
+    if (response.status === 'success') {
+        alert("Paiement réussi ! Transaction ID: " + response.transactionId);
+        
+        // Vider le panier
+        cart = [];
+        updateCart();
+        toggleCart(); // Fermer le panier
+        
+        // Rediriger ou afficher un message de succès moderne
+        window.location.href = "#success"; 
+    } else {
+        alert("Le paiement a échoué ou a été annulé.");
+    }
+}
+
+    </script>
+        <footer class="bg-white border-t border-gray-100 pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+    <div class="relative w-10 h-10">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-sm">
+            <circle cx="50" cy="50" r="45" stroke="#065f46" stroke-width="10" />
+            <path d="M35 35H65M35 50H55M35 65H65M35 35V65" stroke="#065f46" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="68" cy="50" r="8" fill="#f97316" />
+        </svg>
+    </div>
+    <span class="text-2xl font-black text-emerald-900 tracking-tighter">
+        ELO<span class="text-orange-500">STORE</span>
+    </span>
+</div>
+
+                    <p class="text-gray-500 leading-relaxed italic">
+                        "L'excellence technologique au cœur du Bénin : votre confiance, notre moteur."
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-emerald-900 mb-6 uppercase text-sm tracking-widest">Navigation</h4>
+                    <ul class="space-y-4 text-gray-600">
+                        <li><a href="#" class="hover:text-emerald-600 transition-colors">Accueil</a></li>
+                        <li><a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-emerald-600 transition-colors">Boutique</a></li>
+                        <li><a href="#" class="hover:text-emerald-600 transition-colors">Promotions</a></li>
+                        <li><a href="javascript:void(0)" onclick="toggleStores()" class="hover:text-emerald-600 transition-colors">Nos Points de Vente</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-emerald-900 mb-6 uppercase text-sm tracking-widest">Support</h4>
+                    <ul class="space-y-4 text-gray-600">
+                        <li><a href="#" class="hover:text-emerald-600 transition-colors">Conditions de vente</a></li>
+                        <li><a href="#" class="hover:text-emerald-600 transition-colors">Livraison au Nord Bénin</a></li>
+                        <li><a href="#" class="hover:text-emerald-600 transition-colors">SAV & Retours</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-emerald-900 mb-6 uppercase text-sm tracking-widest">Nous contacter</h4>
+                    <div class="flex flex-col space-y-4">
+                        <a href="https://wa.me/22958905862" target="_blank" class="flex items-center space-x-3 text-gray-600 hover:text-emerald-600 transition-all group">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                            </div>
+                            <span class="font-medium">+229 01 58 90 58 62</span>
+                        </a>
+
+                        <a href="https://www.facebook.com/rosa.biden" target="_blank" class="flex items-center space-x-3 text-gray-600 hover:text-blue-600 transition-all group">
+                            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </div>
+                            <span class="font-medium">Facebook</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+           <div class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+    <p>© 2026 EloStore Bénin. Tous droits réservés.</p>
+    <div class="flex items-center space-x-6 mt-4 md:mt-0">
+        <div class="bg-yellow-400 p-1 rounded-md flex items-center justify-center">
+            <img src="mtn_money.png" alt="MTN MoMo" class="h-6">
+        </div>
+        <div class="bg-white p-1 rounded-md flex items-center justify-center">
+            <img src="Moov_money_logo.png" alt="Moov Money" class="h-6">
+        </div>
+        <div class="bg-white p-1 rounded-md flex items-center justify-center">
+            <img src="celtiis-cash.png" alt="Celtiis" class="h-6" onerror="this.parentElement.style.display='none'">
+        </div>
+    </div>
+</div>
+
+        </div>
+    </footer>
+    
+</body>
+</html>
